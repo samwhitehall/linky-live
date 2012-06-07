@@ -15,5 +15,6 @@ var requestHandler = require("./requestHandler");
 // set of url stubs to pass to the appropriate function
 var handle = {}
 handle["/"] = requestHandler.start;
+handle["/sample1"] = requestHandler.sample1;
 
 server.start(router.route, handle);
