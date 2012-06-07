@@ -1,14 +1,12 @@
-function route(handle, pathname, response, postData) {
-	console.log("Routing request for " + pathname);
+var requestHandler = require("./requestHandler");
+
+function route(handle, pathName, response, postData) {
+	console.log("Routing request for " + pathName);
 	
-	if(typeof handle[pathname] == 'function') {
-		return handle[pathname](response, postData);
+	if(typeof handle[pathName] == 'function') {
+		return handle[pathName](response, postData);
 	} else {
-		console.log("No handler for " + pathname);
-		
-		response.writeHead(404, {"Content-Type" : "text/plain"});
-		response.write("404 Not Found");
-		response.end();
+		return requestHandler.flat_html(response, postData, pathName);
 	}
 }
 

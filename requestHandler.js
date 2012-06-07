@@ -10,10 +10,17 @@ function start(response, postData) {
 	response.end();
 }
 
-function sample1(response, postData) {
-	fs.readFile('html/sample1.html', function(error, data) {
-		if(error) throw error;
+function flat_html(response, postData, pathName) {
+	fs.readFile('html/' + pathName, function(error, data) {
+		// Most likely 404: send relevant message
+		if(error) {
+			response.writeHead(404, {"Content-Type" : "text/html"});
+			response.write("<h1>404 @ " + pathName + "</h1><p>" + error + "</p>");
+			response.end();
+			return;
+		}
 		
+		// Otherwise, send file contents
 		response.writeHead(200, {"Content-Type" : "text/html"});
 		response.write(data);
 		response.end();
@@ -21,4 +28,4 @@ function sample1(response, postData) {
 }
 
 exports.start = start;
-exports.sample1 = sample1;
+exports.flat_html = flat_html;
