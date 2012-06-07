@@ -6,7 +6,7 @@ function route(handle, pathName, response, postData) {
 	if(typeof handle[pathName] == 'function') {
 		return handle[pathName](response, postData);
 	} else {
-		return requestHandler.flat_html(response, postData, pathName);
+		return requestHandler.static_file(response, postData, pathName);
 	}
 }
 
