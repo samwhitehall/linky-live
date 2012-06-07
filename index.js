@@ -16,5 +16,6 @@ var requestHandler = require("./requestHandler");
 var handle = {}
 handle["/"] = requestHandler.start;
 handle["/registerHit"] = requestHandler.registerHit;
+handle["/registerHover"] = requestHandler.registerHover;
 
 server.start(router.route, handle);

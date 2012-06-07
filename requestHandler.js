@@ -1,6 +1,8 @@
 var fs = require('fs');
+var querystring = require('querystring');
 
 var hitCounter = 0;
+var links = {};
 
 function start(response, postData) {
 	console.log("requestHandler 'start' was called.");
@@ -53,6 +55,23 @@ function registerHit(response, postData) {
 	response.end();
 }
 
+function registerHover(response, postData) {
+	// extract postData
+	var hoverDetails = querystring.parse(postData);
+	
+	if(links[hoverDetails.a_id]) {
+		links[hoverDetails.a_id] += 1;
+	} else {
+		links[hoverDetails.a_id] = 1;
+	}
+	
+	console.log("\n" + hoverDetails.a_id + ": " + links[hoverDetails.a_id] + "\n");
+	
+	response.writeHead(200);
+	response.end();
+}
+
 exports.start = start;
 exports.static_file = static_file;
 exports.registerHit = registerHit;
+exports.registerHover = registerHover;
